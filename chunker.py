@@ -18,6 +18,9 @@ for file in files:
     # Calculate the number of lines per output file
     lines_per_file = total_lines // num_files_per_input
 
+    # Get the base file name and extension from the input file path
+    file_name, file_extension = os.path.splitext(file)
+
     # Loop through each output file
     for i in range(num_files_per_input):
         # Calculate the start and end line numbers for the current output file
@@ -28,8 +31,11 @@ for file in files:
         if i == num_files_per_input - 1:
             end_line = total_lines
 
+        # Construct the output file name
+        output_file_name = f'{file_name}_{i + 1}{file_extension}'
+
         # Open the current output file
-        with open(f'output_{file}_{i + 1}.jsonl', 'w') as output_file:
+        with open(output_file_name, 'w') as output_file:
             # Write the lines to the current output file
             for line in lines[start_line:end_line]:
                 # Parse the JSON object
